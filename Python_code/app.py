@@ -10,6 +10,7 @@ from models import Myuser
 from flask_wtf.csrf import CSRFProtect
 from forms import RegisterForm, LoginForm
 
+
 app=Flask(__name__)
 
 
