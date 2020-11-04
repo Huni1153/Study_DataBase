@@ -20,7 +20,7 @@ def led(color,mode):
     if 'r' in color  or 'g' in color  or 'y' in color:
         ledControl(color,int(mode))
     else:
-        print()
+        print('error!')
         #return redirect('/errorPage')
 
 
