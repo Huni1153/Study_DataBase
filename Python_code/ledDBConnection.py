@@ -1,11 +1,10 @@
-from Python_code.models import *
+from models import LedTest,db
 import datetime
 
 
 def dbConnect(red, green, yellow):
 
-    temp = datetime.datetime.now()
-    time = temp.strftime("%Y-%m-%d-%H:%M:%S")
+    time = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
 
     ledTable = LedTest()
     ledTable.red = red

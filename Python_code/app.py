@@ -4,23 +4,33 @@ from flask import request
 from flask import session
 from flask import redirect
 from flask import render_template
-from Python_code.ledController import ledAllControl
+from ledController import ledControl
 from flask_wtf.csrf import CSRFProtect
 from forms import RegisterForm, LoginForm
-
+from models import db
 
 
 app=Flask(__name__)
 
+
+
 @app.route('/led/<color>/<mode>')
 def led(color,mode):
 
-
-    ledControl(color,mode)
-
+    if 'r' in color  or 'g' in color  or 'y' in color:
+        ledControl(color,int(mode))
+    else:
+        print()
+        #return redirect('/errorPage')
 
 
     return redirect('/')
+
+@app.route('/errorPage')
+def errorPage():
+
+    return reder_template('/errorPage')
+
 @app.route('/login', methods=['GET','POST'])
 def login():
     form = LoginForm()
@@ -58,7 +68,6 @@ def register():
     return render_template('register.html', form=form)
 
 
-# html을 컨트롤러에서 만들어서 View로 전달하는데 컨트롤러와 View를 분리
 # /127.0.0.1 '/'
 @app.route('/')
 def hello():
@@ -77,7 +86,7 @@ if __name__ == "__main__":
     app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///'+dbfile
     app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']=True
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
-    app.config['SECRET_KEY']='dkjghdfakgjhdfkg'  #임의의 문자열 넣는다.
+    app.config['SECRET_KEY']='dkjghdfakgjhdfkg'  
 
     csrf = CSRFProtect()
     csrf.init_app(app)
