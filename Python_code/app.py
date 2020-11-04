@@ -4,16 +4,23 @@ from flask import request
 from flask import session
 from flask import redirect
 from flask import render_template
-from models import db
-from models import Myuser
-
+from Python_code.ledController import ledAllControl
 from flask_wtf.csrf import CSRFProtect
 from forms import RegisterForm, LoginForm
 
 
+
 app=Flask(__name__)
 
+@app.route('/led/<color>/<mode>')
+def led(color,mode):
 
+
+    ledControl(color,mode)
+
+
+
+    return redirect('/')
 @app.route('/login', methods=['GET','POST'])
 def login():
     form = LoginForm()
